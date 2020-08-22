@@ -4,21 +4,29 @@
 #include<vector>
 #include<algorithm>
 #include<string>
+#include<utility>
+
 
 
 using namespace std;
 typedef long long int ll;
 
-bool comparefun(pair<string,int> &t1, pair<string,int> &t2)
+bool compare(pair<string,pair<int,int> > &t1, pair<string,pair<int,int> > &t2)
 {
-	return t1.second > t2.second;
+	return t1.second.second > t2.second.second;
 }
+
+// bool compare(pair<string,pair<int,int> > &v1, pair<string,pair<int,int> > &v2 )
+// {
+// 	return v1.second.first< v2.second.first;
+// }
 
 int main()
 {
-	vector<pair<string,int> > vec;
-	string name;
-	int age;
+	vector<pair<string,pair<int,int> > > vec;
+	string name;                                  
+	int age,height;
+
 
 	int n;
 	cout<<"Enter n"<<endl;
@@ -28,26 +36,28 @@ int main()
 	{
 		cin>>name;
 		cin>>age;
-		vec.push_back(make_pair(name,age));
+		cin>>height;
+
+		vec.push_back(make_pair(name,make_pair(age,height)));
 	}
 
-	vector<pair<string,int> >:: iterator it=vec.begin();
+	//vector<pair<string,pair<int,int> > > :: iterator it=vec.begin();
 
 
-	for(;it!=vec.end();it++)
+	for(auto it=vec.begin();it!=vec.end();it++)
 	{
-		cout<<it->first<<"  --- > "<<it->second<<endl;
+		cout<<it->first<<"  --- > "<<it->second.first<<"----->"<<it->second.second<<endl;
 	}
 
 	cout<<"Vector After Sorting with Respect to age"<<endl;
 
-	sort(vec.begin(),vec.end(),comparefun);
+	 sort(vec.begin(),vec.end(),compare);
 
-	it = vec.begin();
+	// it = vec.begin();
 
-	for(;it!=vec.end();it++)
+	for(auto it=vec.begin();it!=vec.end();it++)
 	{
-		cout<<it->first<<"  --- > "<<it->second<<endl;
+		cout<<it->first<<"  --- > "<<(*it).second.first<<"----->"<<(*it).second.second<<endl;
 	}
 
 
